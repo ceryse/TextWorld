@@ -26,6 +26,8 @@ public abstract class Creature {
 
     public abstract void move();
 
+    protected abstract Level.Room findNextRoom();
+
     protected void moveTo(Level.Room newRoom) {
         currentRoom.removeCreature(this);
         newRoom.addCreature(this);

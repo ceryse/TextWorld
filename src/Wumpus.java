@@ -18,6 +18,31 @@ public class Wumpus extends Creature {
                 }
             }
         }
-        moveTo(newRoom);
+        moveTo(findNextRoom());
+    }
+
+    protected Level.Room findNextRoom() {
+        Level.Room newRoom = currentRoom;
+        if (currentRoom.getNeighbors().containsValue(player.getCurrentRoom())) {
+            if (currentRoom.getNeighborsList().size() > 1) {
+                getRandomRoom(currentRoom, newRoom);
+            }
+        } else {
+            for (Level.Room r : this.currentRoom.getNeighborsList()) {
+                for (Level.Room r2 : r.getNeighborsList()) {
+                    if (player.getCurrentRoom() == r2) {
+                        getRandomRoom(r, newRoom);
+                    }
+                }
+            }
+        }
+
+        return newRoom;
+    }
+
+    private void getRandomRoom(Level.Room not, Level.Room newRoom) {
+        while (newRoom != not) {
+            newRoom = moveRandom();
+        }
     }
 }

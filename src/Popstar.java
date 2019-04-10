@@ -5,6 +5,10 @@ public class Popstar extends Creature {
     }
 
     public void move() {
+        moveTo(findNextRoom());
+    }
+
+    protected Level.Room findNextRoom() {
         Level.Room newRoom;
         if (currentRoom.getNeighbors().containsValue(player.getCurrentRoom())) {
             newRoom = player.getCurrentRoom();
@@ -13,6 +17,13 @@ public class Popstar extends Creature {
         } else {
             newRoom = moveRandom();
         }
-        moveTo(newRoom);
+        for (Level.Room r : this.currentRoom.getNeighborsList()) {
+            for (Level.Room r2 : r.getNeighborsList()) {
+                if (player.getCurrentRoom() == r2) {
+                    newRoom = r;
+                }
+            }
+        }
+        return newRoom;
     }
 }

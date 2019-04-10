@@ -16,6 +16,7 @@ public class Main {
             System.out.print("What do you want to do? >");
             response = in.nextLine();
             response.trim();
+            Command command = lookupCommand(response);
             moveCreatures(creatures);
             if (response.contains("go") && containsTwoBrackets(response)) {
                 response = getInnerString(response);

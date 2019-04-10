@@ -8,14 +8,16 @@ public class Chicken extends Creature {
     }
 
     public void move() {
-        HashMap<String, Level.Room> map = currentRoom.getNeighbors();
-        ArrayList<Level.Room> rooms = new ArrayList<Level.Room>(map.values());
+        moveTo(findNextRoom());
+    }
+
+    protected Level.Room findNextRoom() {
         Level.Room newRoom;
         if (currentRoom.getNeighbors().size() == 0) {
             newRoom = currentRoom;
         } else {
             newRoom = moveRandom();
         }
-        moveTo(newRoom);
+        return newRoom;
     }
 }

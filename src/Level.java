@@ -136,6 +136,10 @@ public class Level {
             this.neighbors = neighbors;
         }
 
+        public ArrayList<Room> getNeighborsList() {
+            return new ArrayList<Room>(neighbors.values());
+        }
+
         public String getCreatureNames() {
             String output = "";
             for (Creature c : creatures) {
