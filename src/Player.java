@@ -20,8 +20,11 @@ public class Player {
         }
     }
 
-    public void addItem(Item item) {
-        items.add(item);
+    public boolean addItem(Item item) {
+        if (currentRoom.contains(item)) {
+            items.add(item);
+            return true;
+        }
     }
 
     public String getInventory() {

@@ -1,11 +1,16 @@
+import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
+    private static HashMap<String, Command> commands;
+
     public static void main(String[] args) {
-        Level l = setUpLevel();
-        Player p = setUpPlayer(l);
+        Player p = null;
+        Level l = setUpLevel(p);
         ArrayList<Creature> creatures = setUpCreatures(l, p);
+        initCommands(l, p);
 
         String response = "";
         Scanner in = new Scanner(System.in);
@@ -17,6 +22,7 @@ public class Main {
             response = in.nextLine();
             response.trim();
             Command command = lookupCommand(response);
+            command.execute();
             moveCreatures(creatures);
             if (response.contains("go") && containsTwoBrackets(response)) {
                 response = getInnerString(response);
@@ -58,10 +64,24 @@ public class Main {
         } while (!response.equals("quit"));
     }
 
-    private static Player setUpPlayer(Level g) {
-        Player p = new Player("Cerys", "me");
+    private static Command lookupCommand(String response) {
+        String commandWord = getFirstWordIn(response);
+        Command c = commands.get(commandWord);
+        if (c == null) return new EmptyCommand();
+        c.init(response);
+
+        return c;
+    }
+
+    private static void initCommands(Level l, Player p) {
+        commands.put("take", new TakeCommand(l));
+//        commands.put("look", new LookCommand(p));
+//        commands.put("add room", new AddRoomCommand(p));
+    }
+
+    private static void setUpPlayer(Level g, Player p) {
+        p = new Player("Cerys", "me");
         p.setCurrentRoom(g.getRoom("hall"));
-        return p;
     }
 
     private static ArrayList<Creature> setUpCreatures(Level g, Player p) {
@@ -76,7 +96,7 @@ public class Main {
         return creatures;
     }
 
-    private static Level setUpLevel() {
+    private static Level setUpLevel(Player p) {
         Level l = new Level();
         l.addRoom("hall", "a long dark hallway");
         l.addRoom("closet", "a dark, dark closet");
@@ -95,6 +115,8 @@ public class Main {
         l.getRoom("hall").addItem(new Item("lobster", "a red lobster"));
         l.getRoom("closet").addItem(new Item("duck", "a mallard"));
         l.getRoom("bathroom").addItem(new Item("water bottle", "a green metallic water bottle"));
+
+        setUpPlayer(l, p);
 
         return l;
     }
