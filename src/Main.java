@@ -7,8 +7,9 @@ public class Main {
     private static HashMap<String, Command> commands;
 
     public static void main(String[] args) {
-        Player p = null;
-        Level l = setUpLevel(p);
+        Level l = setUpLevel();
+        Player p = setUpPlayer(l);
+        l.setPlayer(p);
         ArrayList<Creature> creatures = setUpCreatures(l, p);
         initCommands(l, p);
 
@@ -33,7 +34,7 @@ public class Main {
 //                }
 //            } else if (response.equals("look")) {
 //                look(p);
-//            } else if (response.contains("add-room") && containsTwoBrackets(response)) {
+//            } else if (response.contains("add room") && containsTwoBrackets(response)) {
 //                System.out.print("Type a description >");
 //                String description = in.nextLine();
 //                l.addRoom(getInnerString(response), description);
@@ -81,14 +82,16 @@ public class Main {
     }
 
     private static void initCommands(Level l, Player p) {
+        commands = new HashMap<String, Command>();
         commands.put("take", new TakeCommand(l));
-//        commands.put("look", new LookCommand(p));
-//        commands.put("add room", new AddRoomCommand(p));
+        commands.put("look", new LookCommand(p));
+        commands.put("add room", new AddRoomCommand(p));
     }
 
-    private static void setUpPlayer(Level g, Player p) {
-        p = new Player("Cerys", "me");
+    private static Player setUpPlayer(Level g) {
+        Player p = new Player("Cerys", "me");
         p.setCurrentRoom(g.getRoom("hall"));
+        return p;
     }
 
     private static ArrayList<Creature> setUpCreatures(Level g, Player p) {
@@ -103,7 +106,7 @@ public class Main {
         return creatures;
     }
 
-    private static Level setUpLevel(Player p) {
+    private static Level setUpLevel() {
         Level l = new Level();
         l.addRoom("hall", "a long dark hallway");
         l.addRoom("closet", "a dark, dark closet");
@@ -122,8 +125,6 @@ public class Main {
         l.getRoom("hall").addItem(new Item("lobster", "a red lobster"));
         l.getRoom("closet").addItem(new Item("duck", "a mallard"));
         l.getRoom("bathroom").addItem(new Item("water bottle", "a green metallic water bottle"));
-
-        setUpPlayer(l, p);
 
         return l;
     }
