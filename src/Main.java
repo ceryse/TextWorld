@@ -9,7 +9,6 @@ public class Main {
     public static void main(String[] args) {
         Level l = setUpLevel();
         Player p = setUpPlayer(l);
-        l.setPlayer(p);
         ArrayList<Creature> creatures = setUpCreatures(l, p);
         initCommands(l, p);
 
@@ -52,7 +51,7 @@ public class Main {
 
     private static void initCommands(Level l, Player p) {
         commands = new HashMap<String, Command>();
-        commands.put("take", new TakeCommand(l));
+        commands.put("take", new TakeCommand(p));
         commands.put("look", new LookCommand(p));
         commands.put("add room", new AddRoomCommand(p, l));
         commands.put("drop", new DropCommand(p));
@@ -122,7 +121,7 @@ public class Main {
     }
 
     private static boolean containsAppropriateBrackets(String response) {
-        return (response.indexOf("<") != -1 && response.indexOf(">") != -1 && response.indexOf("<") < response.indexOf(">"))||(!response.contains("<")&&!response.contains(">"));
+        return (response.indexOf("<") != -1 && response.indexOf(">") != -1 && response.indexOf("<") < response.indexOf(">")) || (!response.contains("<") && !response.contains(">"));
     }
 
     private static String getInnerString(String response) {

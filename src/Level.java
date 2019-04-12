@@ -4,19 +4,9 @@ import java.util.HashMap;
 
 public class Level {
     private HashMap<String, Room> rooms;
-    private Player player;
 
     public Level() {
         rooms = new HashMap<String, Room>();
-        player = null;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
     }
 
     public Room getRandomRoom() {

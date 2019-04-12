@@ -1,9 +1,9 @@
 public class TakeCommand extends InputCommand {
-    Level level;
+    Player p;
     String itemName;
 
-    public TakeCommand(Level level) {
-        this.level = level;
+    public TakeCommand(Player p) {
+        this.p = p;
     }
 
     public void init(String userString) {
@@ -11,7 +11,6 @@ public class TakeCommand extends InputCommand {
     }
 
     public boolean execute() {
-        Player p = level.getPlayer();
         boolean success = p.addItem(itemName);
         return success;
     }
