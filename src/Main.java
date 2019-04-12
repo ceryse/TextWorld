@@ -17,15 +17,17 @@ public class Main {
         Scanner in = new Scanner(System.in);
 
         displayOptions();
-        do {
-            System.out.println("You are in the " + p.getCurrentRoom().getName());
-            System.out.print("What do you want to do? >");
-            response = in.nextLine();
-            response.trim();
 
-            moveCreatures(creatures);
-            Command command = lookupCommand(response);
-            command.execute();
+        System.out.println("You are in the " + p.getCurrentRoom().getName());
+        System.out.print("What do you want to do? >");
+        response = in.nextLine();
+        response.trim();
+
+        moveCreatures(creatures);
+        Command command = lookupCommand(response);
+        if (!command.execute()) {
+            displayOptions();
+        }
 
 //            if (response.contains("go") && containsTwoBrackets(response)) {
 //                response = getInnerString(response);
@@ -63,8 +65,8 @@ public class Main {
 //            } else {
 //                displayOptions();
 //            }
-
-        } while (!response.equals("quit"));
+//
+//        } while (!response.equals("quit"));
     }
 
     private static Command lookupCommand(String response) {
@@ -86,6 +88,10 @@ public class Main {
         commands.put("take", new TakeCommand(l));
         commands.put("look", new LookCommand(p));
         commands.put("add room", new AddRoomCommand(p, l));
+        commands.put("drop", new DropCommand(p));
+        commands.put("quit", new QuitCommand());
+        commands.put("go", new GoCommand(l, p));
+        commands.put("inventory", new InventoryCommand(p));
     }
 
     private static Player setUpPlayer(Level g) {
