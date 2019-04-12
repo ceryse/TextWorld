@@ -11,7 +11,7 @@ public class InventoryCommand implements Command {
 
     @Override
     public boolean execute() {
-        System.out.println(p.getInventory());
+        System.out.println("You have: " + p.getInventory());
         return true;
     }
 }

@@ -1,6 +1,6 @@
 import com.sun.corba.se.impl.orbutil.graph.Graph;
 
-public class GoCommand implements Command {
+public class GoCommand extends InputCommand {
     Level l;
     Player p;
     String room;
@@ -13,10 +13,6 @@ public class GoCommand implements Command {
     @Override
     public void init(String userString) {
         room = getInnerString(userString);
-    }
-
-    private String getInnerString(String userString) {
-        return userString.substring(userString.indexOf("<") + 1, userString.indexOf(">"));
     }
 
     @Override

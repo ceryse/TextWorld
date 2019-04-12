@@ -18,55 +18,22 @@ public class Main {
 
         displayOptions();
 
-        System.out.println("You are in the " + p.getCurrentRoom().getName());
-        System.out.print("What do you want to do? >");
-        response = in.nextLine();
-        response.trim();
+        while (true) {
+            System.out.println("You are in the " + p.getCurrentRoom().getName());
+            System.out.print("What do you want to do? >");
+            response = in.nextLine();
+            response.trim();
 
-        moveCreatures(creatures);
-        Command command = lookupCommand(response);
-        if (!command.execute()) {
-            displayOptions();
+            moveCreatures(creatures);
+            if (!containsAppropriateBrackets(response)) {
+                System.out.println("huh??");
+                continue;
+            }
+            Command command = lookupCommand(response);
+            if (!command.execute()) {
+                displayOptions();
+            }
         }
-
-//            if (response.contains("go") && containsTwoBrackets(response)) {
-//                response = getInnerString(response);
-//                if (!p.moveRoom(l.getRoom(response))) {
-//                    System.out.println("You can't go to " + response);
-//                }
-//            } else if (response.equals("look")) {
-//                look(p);
-//            } else if (response.contains("add room") && containsTwoBrackets(response)) {
-//                System.out.print("Type a description >");
-//                String description = in.nextLine();
-//                l.addRoom(getInnerString(response), description);
-//                l.addUndirectedEdge(p.getCurrentRoom().getName(), getInnerString(response));
-//                p.setCurrentRoom(l.getRoom(getInnerString(response)));
-//            } else if (response.contains("take") && containsTwoBrackets(response)) {
-//                response = getInnerString(response);
-//                Item temp = p.getCurrentRoom().removeItem(response);
-//                if (temp == null) {
-//                    System.out.println(response + " doesn't exist!");
-//                } else {
-//                    p.addItem(temp);
-//                }
-//            } else if (response.contains("drop") && containsTwoBrackets(response)) {
-//                response = getInnerString(response);
-//                Item temp = p.removeItem(response);
-//                if (temp == null) {
-//                    System.out.println("You do not have a " + response);
-//                } else {
-//                    p.getCurrentRoom().addItem(temp);
-//                }
-//            } else if (response.contains("inventory")) {
-//                System.out.println(p.getInventory());
-//            } else if (response.equals("quit")) {
-//                continue;
-//            } else {
-//                displayOptions();
-//            }
-//
-//        } while (!response.equals("quit"));
     }
 
     private static Command lookupCommand(String response) {
@@ -154,8 +121,8 @@ public class Main {
         System.out.println("The creatures in this room are " + p.getCurrentRoom().getCreatureNames());
     }
 
-    private static boolean containsTwoBrackets(String response) {
-        return response.indexOf("<") != -1 && response.indexOf(">") != -1 && response.indexOf("<") < response.indexOf(">");
+    private static boolean containsAppropriateBrackets(String response) {
+        return (response.indexOf("<") != -1 && response.indexOf(">") != -1 && response.indexOf("<") < response.indexOf(">"))||(!response.contains("<")&&!response.contains(">"));
     }
 
     private static String getInnerString(String response) {

@@ -1,4 +1,4 @@
-public class TakeCommand implements Command {
+public class TakeCommand extends InputCommand {
     Level level;
     String itemName;
 
@@ -8,10 +8,6 @@ public class TakeCommand implements Command {
 
     public void init(String userString) {
         this.itemName = getInnerString(userString);
-    }
-
-    private String getInnerString(String userString) {
-        return userString.substring(userString.indexOf("<") + 1, userString.indexOf(">"));
     }
 
     public boolean execute() {

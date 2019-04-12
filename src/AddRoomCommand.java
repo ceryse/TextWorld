@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class AddRoomCommand implements Command {
+public class AddRoomCommand extends InputCommand {
     Player p;
     Level l;
     Scanner in;
@@ -23,9 +23,5 @@ public class AddRoomCommand implements Command {
     @Override
     public boolean execute() {
         return false;
-    }
-
-    private static String getInnerString(String response) {
-        return response.substring(response.indexOf("<") + 1, response.indexOf(">"));
     }
 }

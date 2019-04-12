@@ -1,4 +1,4 @@
-public class DropCommand implements Command {
+public class DropCommand extends InputCommand {
     Player p;
     Item item;
 
@@ -23,9 +23,5 @@ public class DropCommand implements Command {
             System.out.println("You do not have that item");
             return false;
         }
-    }
-
-    private String getInnerString(String userString) {
-        return userString.substring(userString.indexOf("<") + 1, userString.indexOf(">"));
     }
 }
