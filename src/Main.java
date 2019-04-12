@@ -21,56 +21,63 @@ public class Main {
             System.out.print("What do you want to do? >");
             response = in.nextLine();
             response.trim();
+
+            moveCreatures(creatures);
             Command command = lookupCommand(response);
             command.execute();
-            moveCreatures(creatures);
-            if (response.contains("go") && containsTwoBrackets(response)) {
-                response = getInnerString(response);
-                if (!p.moveRoom(l.getRoom(response))) {
-                    System.out.println("You can't go to " + response);
-                }
-            } else if (response.equals("look")) {
-                look(p);
-            } else if (response.contains("add room") && containsTwoBrackets(response)) {
-                System.out.print("Type a description >");
-                String description = in.nextLine();
-                l.addRoom(getInnerString(response), description);
-                l.addUndirectedEdge(p.getCurrentRoom().getName(), getInnerString(response));
-                p.setCurrentRoom(l.getRoom(getInnerString(response)));
-            } else if (response.contains("take") && containsTwoBrackets(response)) {
-                response = getInnerString(response);
-                Item temp = p.getCurrentRoom().removeItem(response);
-                if (temp == null) {
-                    System.out.println(response + " doesn't exist!");
-                } else {
-                    p.addItem(temp);
-                }
-            } else if (response.contains("drop") && containsTwoBrackets(response)) {
-                response = getInnerString(response);
-                Item temp = p.removeItem(response);
-                if (temp == null) {
-                    System.out.println("You do not have a " + response);
-                } else {
-                    p.getCurrentRoom().addItem(temp);
-                }
-            } else if (response.contains("inventory")) {
-                System.out.println(p.getInventory());
-            } else if (response.equals("quit")) {
-                continue;
-            } else {
-                displayOptions();
-            }
+
+//            if (response.contains("go") && containsTwoBrackets(response)) {
+//                response = getInnerString(response);
+//                if (!p.moveRoom(l.getRoom(response))) {
+//                    System.out.println("You can't go to " + response);
+//                }
+//            } else if (response.equals("look")) {
+//                look(p);
+//            } else if (response.contains("add-room") && containsTwoBrackets(response)) {
+//                System.out.print("Type a description >");
+//                String description = in.nextLine();
+//                l.addRoom(getInnerString(response), description);
+//                l.addUndirectedEdge(p.getCurrentRoom().getName(), getInnerString(response));
+//                p.setCurrentRoom(l.getRoom(getInnerString(response)));
+//            } else if (response.contains("take") && containsTwoBrackets(response)) {
+//                response = getInnerString(response);
+//                Item temp = p.getCurrentRoom().removeItem(response);
+//                if (temp == null) {
+//                    System.out.println(response + " doesn't exist!");
+//                } else {
+//                    p.addItem(temp);
+//                }
+//            } else if (response.contains("drop") && containsTwoBrackets(response)) {
+//                response = getInnerString(response);
+//                Item temp = p.removeItem(response);
+//                if (temp == null) {
+//                    System.out.println("You do not have a " + response);
+//                } else {
+//                    p.getCurrentRoom().addItem(temp);
+//                }
+//            } else if (response.contains("inventory")) {
+//                System.out.println(p.getInventory());
+//            } else if (response.equals("quit")) {
+//                continue;
+//            } else {
+//                displayOptions();
+//            }
 
         } while (!response.equals("quit"));
     }
 
     private static Command lookupCommand(String response) {
-        String commandWord = getFirstWordIn(response);
+        String commandWord = getCommandName(response);
         Command c = commands.get(commandWord);
         if (c == null) return new EmptyCommand();
         c.init(response);
 
         return c;
+    }
+
+    private static String getCommandName(String response) {
+        String[] response1 = response.split("<");
+        return response1[0];
     }
 
     private static void initCommands(Level l, Player p) {

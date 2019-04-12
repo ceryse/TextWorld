@@ -58,7 +58,20 @@ public class Level {
             creatures = new ArrayList<>();
         }
 
+        public Item getItem(String itemName) {
+            for (Item item : items) {
+                if (item.getName().equals(itemName)) {
+                    return item;
+                }
+            }
+            return null;
+        }
+
         public boolean contains(String itemName) {
+            return this.contains(getItem(itemName));
+        }
+
+        public boolean contains(Item item) {
             return items.contains(item);
         }
 

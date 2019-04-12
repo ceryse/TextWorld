@@ -12,11 +12,11 @@ public class TakeCommand implements Command {
 
     private String getInnerString(String userString) {
         return userString.substring(userString.indexOf("<") + 1, userString.indexOf(">"));
-
     }
 
     public boolean execute() {
         Player p = level.getPlayer();
-        if (p.getCurrentRoom().contains(itemName))
+        boolean success = p.addItem(itemName);
+        return success;
     }
 }

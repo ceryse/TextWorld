@@ -25,6 +25,15 @@ public class Player {
             items.add(item);
             return true;
         }
+        return false;
+    }
+
+    public boolean addItem(String itemName) {
+        if (currentRoom.contains(itemName)) {
+            items.add(currentRoom.getItem(itemName));
+            return true;
+        }
+        return false;
     }
 
     public String getInventory() {
