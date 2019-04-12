@@ -85,7 +85,7 @@ public class Main {
         commands = new HashMap<String, Command>();
         commands.put("take", new TakeCommand(l));
         commands.put("look", new LookCommand(p));
-        commands.put("add room", new AddRoomCommand(p));
+        commands.put("add room", new AddRoomCommand(p, l));
     }
 
     private static Player setUpPlayer(Level g) {

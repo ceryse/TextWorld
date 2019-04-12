@@ -20,6 +20,15 @@ public class Player {
         }
     }
 
+    public Item getItem(String itemName){
+        for (Item item:items){
+            if (item.getName().equals(itemName)){
+                return item;
+            }
+        }
+        return null;
+    }
+
     public boolean addItem(Item item) {
         if (currentRoom.contains(item)) {
             items.add(item);
