@@ -10,7 +10,7 @@ public class Popstar extends Creature {
 
     protected Level.Room findNextRoom() {
         Level.Room newRoom;
-        if (currentRoom.getNeighbors().containsValue(player.getCurrentRoom())) {
+        if (currentRoom.hasNeighbor(player.getCurrentRoom())) {
             newRoom = player.getCurrentRoom();
         } else if (currentRoom == player.getCurrentRoom()) {
             newRoom = currentRoom;

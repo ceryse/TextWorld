@@ -7,11 +7,12 @@ public class TakeCommand extends InputCommand {
     }
 
     public void init(String userString) {
-        this.itemName = getInnerString(userString);
+        this.itemName = getSecondWord(userString);
     }
 
     public boolean execute() {
         boolean success = p.addItem(itemName);
+        p.getCurrentRoom().removeItem(itemName);
         return success;
     }
 }

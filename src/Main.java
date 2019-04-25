@@ -24,12 +24,10 @@ public class Main {
             response.trim();
 
             moveCreatures(creatures);
-            if (!containsAppropriateBrackets(response)) {
-                System.out.println("huh??");
-                continue;
-            }
             Command command = lookupCommand(response);
+
             if (!command.execute()) {
+                System.out.println("No entiendo");
                 displayOptions();
             }
         }
@@ -45,15 +43,15 @@ public class Main {
     }
 
     private static String getCommandName(String response) {
-        String[] response1 = response.split("<");
-        return response1[0];
+        return response.split(" ")[0];
+
     }
 
     private static void initCommands(Level l, Player p) {
         commands = new HashMap<String, Command>();
         commands.put("take", new TakeCommand(p));
         commands.put("look", new LookCommand(p));
-        commands.put("add room", new AddRoomCommand(p, l));
+        commands.put("add-room", new AddRoomCommand(p, l));
         commands.put("drop", new DropCommand(p));
         commands.put("quit", new QuitCommand());
         commands.put("go", new GoCommand(l, p));
@@ -109,19 +107,8 @@ public class Main {
 
     private static void displayOptions() {
         System.out.println("Type 'go <roomname>' to go to the room\nType 'look' to look around the room\n" +
-                "Type 'add room <roomname>' to add a neighbor to your current room.\nType 'take <object>' to pick up an object" +
+                "Type 'add-room <roomname>' to add a neighbor to your current room.\nType 'take <object>' to pick up an object" +
                 "\nType 'drop <object> to drop an object\nType 'inventory' to display your inventory\nType 'quit' to quit");
-    }
-
-    private static void look(Player p) {
-        System.out.println("You are in " + p.getCurrentRoom().getDescription());
-        System.out.println("You can go to the " + p.getCurrentRoom().getNeighborNames());
-        System.out.println("The items in this room are: " + p.getCurrentRoom().displayItems());
-        System.out.println("The creatures in this room are " + p.getCurrentRoom().getCreatureNames());
-    }
-
-    private static boolean containsAppropriateBrackets(String response) {
-        return (response.indexOf("<") != -1 && response.indexOf(">") != -1 && response.indexOf("<") < response.indexOf(">")) || (!response.contains("<") && !response.contains(">"));
     }
 
     private static String getInnerString(String response) {

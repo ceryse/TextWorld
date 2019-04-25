@@ -11,7 +11,7 @@ public class LookCommand implements Command {
 
     @Override
     public boolean execute() {
-        System.out.println("You are in " + p.getCurrentRoom().getDescription());
+        System.out.println("You are in the " + p.getCurrentRoom().getName());
         System.out.println("You can go to the " + p.getCurrentRoom().getNeighborNames());
         System.out.println("The items in this room are: " + p.getCurrentRoom().displayItems());
         System.out.println("The creatures in this room are " + p.getCurrentRoom().getCreatureNames());

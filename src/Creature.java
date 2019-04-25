@@ -29,12 +29,11 @@ public abstract class Creature {
     protected abstract Level.Room findNextRoom();
 
     protected void moveTo(Level.Room newRoom) {
-        currentRoom.removeCreature(this);
-        newRoom.addCreature(this);
+        currentRoom.moveCreature(newRoom, this);
         this.setCurrentRoom(newRoom);
     }
 
-    protected Level.Room moveRandom(){
+    protected Level.Room moveRandom() {
         return currentRoom.getRandomNeighbor();
     }
 }

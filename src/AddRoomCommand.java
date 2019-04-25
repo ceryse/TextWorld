@@ -13,15 +13,13 @@ public class AddRoomCommand extends InputCommand {
 
     @Override
     public void init(String userString) {
-        System.out.print("Type a description >");
-        String description = in.nextLine();
-        l.addRoom(getInnerString(userString), description);
-        l.addUndirectedEdge(p.getCurrentRoom().getName(), getInnerString(userString));
-        p.setCurrentRoom(l.getRoom(getInnerString(userString)));
+        l.addRoom(getSecondWord(userString), "");
+        l.addUndirectedEdge(p.getCurrentRoom().getName(), getSecondWord(userString));
+        p.setCurrentRoom(l.getRoom(getSecondWord(userString)));
     }
 
     @Override
     public boolean execute() {
-        return false;
+        return true;
     }
 }

@@ -1,5 +1,3 @@
-import com.sun.corba.se.impl.orbutil.graph.Graph;
-
 public class GoCommand extends InputCommand {
     Level l;
     Player p;
@@ -12,7 +10,7 @@ public class GoCommand extends InputCommand {
 
     @Override
     public void init(String userString) {
-        room = getInnerString(userString);
+        room = getSecondWord(userString);
     }
 
     @Override

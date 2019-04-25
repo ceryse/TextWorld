@@ -9,7 +9,7 @@ public class Wumpus extends Creature {
 
     public void move() {
         Level.Room newRoom = currentRoom;
-        if (currentRoom.getNeighbors().containsValue(player.getCurrentRoom())) {
+        if (currentRoom.hasNeighbor(player.getCurrentRoom())) {
             HashMap<String, Level.Room> map = currentRoom.getNeighbors();
             ArrayList<Level.Room> rooms = new ArrayList<Level.Room>(map.values());
             if (rooms.size() > 1) {
@@ -23,7 +23,7 @@ public class Wumpus extends Creature {
 
     protected Level.Room findNextRoom() {
         Level.Room newRoom = currentRoom;
-        if (currentRoom.getNeighbors().containsValue(player.getCurrentRoom())) {
+        if (currentRoom.hasNeighbor(player.getCurrentRoom())) {
             if (currentRoom.getNeighborsList().size() > 1) {
                 getRandomRoom(currentRoom, newRoom);
             }

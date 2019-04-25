@@ -33,6 +33,7 @@ public class Level {
         return rooms.get(name);
     }
 
+
     public class Room {
         private String name;
         private HashMap<String, Room> neighbors;
@@ -46,6 +47,22 @@ public class Level {
             neighbors = new HashMap<String, Room>();
             items = new ArrayList<>();
             creatures = new ArrayList<>();
+        }
+
+        public boolean hasNeighbor(String roomName) {
+            for (Room r : neighbors.values()) {
+                if (r.getName().equals(roomName)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public boolean hasNeighbor(Room r) {
+            for (Room room : neighbors.values()) {
+                if (r == room) return true;
+            }
+            return false;
         }
 
         public Item getItem(String itemName) {
@@ -69,7 +86,7 @@ public class Level {
             return creatures;
         }
 
-        public void removeCreature(Creature c) {
+        private void removeCreature(Creature c) {
             creatures.remove(c);
         }
 
@@ -77,7 +94,7 @@ public class Level {
             creatures.add(c);
         }
 
-        public boolean destroyItem(String name) {
+        private boolean destroyItem(String name) {
             for (Item item : items) {
                 if (item.getName().equals(name)) {
                     items.remove(item);
@@ -174,6 +191,11 @@ public class Level {
         public Room getRandomNeighbor() {
             ArrayList<Room> rooms = new ArrayList<Room>(neighbors.values());
             return rooms.get((int) (Math.random() * rooms.size()));
+        }
+
+        public void moveCreature(Room newRoom, Creature creature) {
+            this.removeCreature(creature);
+            newRoom.addCreature(creature);
         }
     }
 }

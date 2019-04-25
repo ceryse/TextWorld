@@ -8,7 +8,7 @@ public class DropCommand extends InputCommand {
 
     @Override
     public void init(String userString) {
-        userString = getInnerString(userString);
+        userString = getSecondWord(userString);
         item = p.removeItem(userString);
         if (item == null) {
         }
